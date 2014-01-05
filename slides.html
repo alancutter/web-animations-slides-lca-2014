@@ -52,7 +52,7 @@ URL: https://code.google.com/p/io-2012-slides
       <ul class="build">
         <li>CSS Animations</li>
         <li>SVG Animations</li>
-        <li>Javascript Animations</li>
+        <li>Javascript Animations (Canvas, WebGL, etc.)</li>
         <li>Flash (becoming obsolete)</li>
       </ul>
     </article>
@@ -125,10 +125,15 @@ URL: https://code.google.com/p/io-2012-slides
     <article>
       <ul class="build">
         <li>Simple & effective</li>
-        <li>Delarative</li>
+        <li>Declarative</li>
         <li>Hardware accelerated (when possible)</li>
-        <li class="red">Limited control beyond declaration</li>
-        <li class="red">No primitives for synchronising multiple animations</li>
+        <li class="red">
+          Very limited control beyond declaration
+          <ul class="build">
+           <li>No playback controls</li>
+           <li>No dynamic modifications to animation content</li>
+         </ul>
+        <li class="red">No primitives for synchronising different animations playing together</li>
         <li class="red">Cannot stack multiple animations</li>
       </ul>
     </article>
@@ -137,13 +142,60 @@ URL: https://code.google.com/p/io-2012-slides
   <slide>
     <hgroup>
       <h2>SVG Animations</h2>
-      <h3>SMIL</h3><!-- Other SVG specs go here -->
+      <h3>SMIL</h3>
     </hgroup>
     <article>
+      <!-- SVG Animation example -->
       <pre class="prettyprint" data-lang="SVG">
-&lt;animate&gt;
-&lt;/animate&gt;
+&lt;animatetransform
+  attributeName="transform"
+  attributeType="xml"
+  type="rotate"
+  from="0deg"
+  to="360deg"
+  dur="2s"
+&gt;&lt;/animatetransform&gt;
 </pre>
+      <svg ns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">
+        <g transform="translate(100,100)">
+          <g>
+            <rect width="100" height="100" fill="green" transform="translate(-50,-50)"></rect>
+            <!-- Add ease-in-out and infinite iterations to this animation and the code -->
+            <animatetransform
+              attributeName="transform"
+              attributeType="xml"
+              type="rotate"
+              from="0"
+              to="360"
+              dur="2s"
+            ></animatetransform>
+          </g>
+        </g>
+      </svg>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>SVG Animations</h2>
+      <h3>SMIL</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Declarative</li>
+        <li>Powerful animation model</li>
+        <li>Has playback controls</li>
+        <li class="red">Cannot dynamically modify animation content</li>
+        <li class="red">Sees very little use on the web</li>
+        <li class="red">Does not integrate with HTML content</li>
+        <li class="red">
+          Implementations are lacking compared with CSS Animations
+          <ul class="build">
+            <li>Missing cross browser support</li>
+            <li>Fewer performance optimisations</li>
+          </ul>
+        </li>
+      </ul>
     </article>
   </slide>
 
