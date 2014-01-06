@@ -321,7 +321,7 @@ requestAnimationFrame(frame);</pre>
     </hgroup>
     <article>
       <h3>A simple example</h3>
-      <pre class="prettyprint">
+      <pre class="prettyprint" data-lang="Javascript">
 element.animate(
     {transform: 'rotate(360deg)'},
     {duration: 2});
@@ -344,12 +344,12 @@ element.animate(
     </hgroup>
     <article>
       <h3>More complex timing</h3>
-      <pre class="prettyprint">
+      <pre class="prettyprint" data-lang="Javascript">
 element.animate(
     {transform: 'rotate(360deg)'},
     {
       direction: 'alternate',
-      duration: 0.75,
+      duration: 1,
       iterations: 4
     });
 </pre>
@@ -358,7 +358,7 @@ element.animate(
         complexExample.addEventListener('click', function() {
           complexExample.animate(
             [{transform: 'rotate(0deg)'}, {transform: 'rotate(360deg)'}],
-            {direction: 'alternate', duration: 0.75, iterations: 4});
+            {direction: 'alternate', duration: 1, iterations: 4});
         });
       </script>
     </article>
@@ -371,6 +371,109 @@ element.animate(
     </hgroup>
     <article>
       <h3>More complex timing</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+element.animate(
+    {transform: 'rotate(360deg)'},
+    {
+      direction: 'alternate',
+      duration: 1,
+      iterations: Infinity,
+      easing: 'ease-in-out',
+      playbackRate: 2
+    });
+</pre>
+      <img src="images/chrome-logo-128.png" id="moreComplexExample">
+      <script>
+        moreComplexExample.addEventListener('click', function() {
+          moreComplexExample.animate(
+            [{transform: 'rotate(0deg)'}, {transform: 'rotate(360deg)'}],
+            {direction: 'alternate', duration: 1, iterations: Infinity, easing: 'ease-in-out', playbackRate: 2});
+        });
+      </script>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Without the syntactic sugar</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+document.timeline.play(
+  new Animation(
+    element,
+    {transform: 'rotate(360deg)'},
+    {duration: 2}));
+</pre>
+      <img src="images/chrome-logo-128.png" id="noSugar">
+      <script>
+        noSugar.addEventListener('click', function() {
+          document.timeline.play(
+            new Animation(
+              noSugar,
+              [{transform: 'rotate(0deg)'}, {transform: 'rotate(360deg)'}],
+              {duration: 2}));
+        });
+      </script>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Parallel animations</h3>
+      <style>
+        #parGroupContainer {
+          width: 800px;
+          background-color: white;
+          border: solid black;
+          padding: 40px;
+          padding-bottom: 20px;
+        }
+        .timing-box {
+          width: 0px;
+          height: 50px;
+          background: blue;
+          border: solid black;
+          margin-bottom: 20px;
+        }
+      </style>
+      <div id="parGroupContainer">
+        <div id="parItem1" class="timing-box"></div>
+        <div id="parItem2" class="timing-box"></div>
+        <div id="parItem3" class="timing-box"></div>
+      </div>
+      <script>
+        parGroupContainer.addEventListener('click', function() {
+          document.timeline.play(new ParGroup([
+            new Animation(parItem1, [{width: '0px'}, {width: '600px'}], 1),
+            new Animation(parItem2, [{width: '0px'}, {width: '800px'}], 1),
+            new Animation(parItem3, [{width: '0px'}, {width: '200px'}], 1),
+          ]));
+        });
+      </script>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Parallel animations</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+document.timeline.play(new ParGroup([
+  new Animation(parItem1, {width: '600px'}, {duration: 1}),
+  new Animation(parItem2, {width: '800px'}, {duration: 1}),
+  new Animation(parItem3, {width: '200px'}, {duration: 1}),
+]));
+</pre>
     </article>
   </slide>
 
@@ -382,17 +485,6 @@ element.animate(
     <article>
       <h3>Grouping animations</h3>
       Sequence groups
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      Web Animations
-      <h2>Javascript API</h2>
-    </hgroup>
-    <article>
-      <h3>Grouping animations</h3>
-      Parallel groups
     </article>
   </slide>
 
