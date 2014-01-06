@@ -66,16 +66,14 @@ URL: https://code.google.com/p/io-2012-slides
     <article>
       <pre class="prettyprint" data-lang="CSS">
 .red.square { transition: transform 2s ease-in-out; }
-.red.square:hover { transform: rotate(360deg); }
-</pre>
+.red.square:hover { transform: rotate(360deg); }</pre>
       <pre class="prettyprint">
 .blue.square { animation: none 2s ease-in-out; }
 .blue.square:hover { animation-name: spin; }
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-</pre>
+}</pre>
       <style>
         #square-container {
           position: relative;
@@ -154,9 +152,9 @@ URL: https://code.google.com/p/io-2012-slides
   from="0deg"
   to="360deg"
   dur="2s"
-&gt;&lt;/animatetransform&gt;
-</pre>
-      <svg ns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">
+  repeatCount="indefinite"
+&gt;&lt;/animatetransform&gt;</pre>
+      <svg id="svgAnimation" ns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200" style="margin-top: -20px; display: inline-block">
         <g transform="translate(100,100)">
           <g>
             <rect width="100" height="100" fill="green" transform="translate(-50,-50)"></rect>
@@ -168,10 +166,25 @@ URL: https://code.google.com/p/io-2012-slides
               from="0"
               to="360"
               dur="2s"
+              repeatCount="indefinite"
             ></animatetransform>
           </g>
         </g>
       </svg>
+      <button style="margin-left: 50px; margin-top: -180px; width: 60px;" id="svgAnimationControl">Pause</button>
+      <script>
+        var paused = false;
+        svgAnimationControl.addEventListener('click', function() {
+          if (paused) {
+            svgAnimation.unpauseAnimations();
+            svgAnimationControl.innerHTML = 'Pause';
+          } else {
+            svgAnimation.pauseAnimations();
+            svgAnimationControl.innerHTML = 'Play';
+          }
+          paused = !paused;
+        });
+      </script>
     </article>
   </slide>
 
@@ -183,9 +196,10 @@ URL: https://code.google.com/p/io-2012-slides
     <article>
       <ul class="build">
         <li>Declarative</li>
-        <li>Powerful animation model</li>
+        <li>Can synchronise animations together</li>
         <li>Has playback controls</li>
         <li class="red">Cannot dynamically modify animation content</li>
+        <li class="red">Entire SVG is treated as a single animation</li>
         <li class="red">Sees very little use on the web</li>
         <li class="red">Does not integrate with HTML content</li>
         <li class="red">
@@ -204,6 +218,21 @@ URL: https://code.google.com/p/io-2012-slides
       <h2>Javascript</h2>
     </hgroup>
     <article>
+      <pre class="prettyprint">
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Javascript</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Total control over the animation</li>
+        <li>Portable (even beyond the web)</li>
+        <li class="red">Must run on the main thread</li>
+        <li class="red">Procedural, not declarative</li>
     </article>
   </slide>
 
