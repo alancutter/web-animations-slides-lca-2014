@@ -427,32 +427,39 @@ document.timeline.play(
     </hgroup>
     <article>
       <h3>Parallel animations</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+document.timeline.play(new ParGroup([
+  new Animation(parItem1, {width: '600px'}, {duration: 1}),
+  new Animation(parItem2, {width: '800px'}, {duration: 1}),
+  new Animation(parItem3, {width: '200px'}, {duration: 1}),
+]));
+</pre>
       <style>
         #parGroupContainer {
-          width: 800px;
-          background-color: white;
+          width: 820px;
+          background-color: lightgrey;
           border: solid black;
-          padding: 40px;
-          padding-bottom: 20px;
+          padding: 20px;
+          padding-bottom: 10px;
         }
-        .timing-box {
+        .par-timing-box {
           width: 0px;
-          height: 50px;
-          background: blue;
+          height: 20px;
+          background: #ffd14d;
           border: solid black;
-          margin-bottom: 20px;
+          margin-bottom: 10px;
         }
       </style>
       <div id="parGroupContainer">
-        <div id="parItem1" class="timing-box"></div>
-        <div id="parItem2" class="timing-box"></div>
-        <div id="parItem3" class="timing-box"></div>
+        <div id="parItem1" class="par-timing-box"></div>
+        <div id="parItem2" class="par-timing-box"></div>
+        <div id="parItem3" class="par-timing-box"></div>
       </div>
       <script>
         parGroupContainer.addEventListener('click', function() {
           document.timeline.play(new ParGroup([
             new Animation(parItem1, [{width: '0px'}, {width: '600px'}], 1),
-            new Animation(parItem2, [{width: '0px'}, {width: '800px'}], 1),
+            new Animation(parItem2, [{width: '0px'}, {width: '820px'}], 1),
             new Animation(parItem3, [{width: '0px'}, {width: '200px'}], 1),
           ]));
         });
@@ -466,14 +473,50 @@ document.timeline.play(
       <h2>Javascript API</h2>
     </hgroup>
     <article>
-      <h3>Parallel animations</h3>
+      <h3>Sequential animations</h3>
       <pre class="prettyprint" data-lang="Javascript">
-document.timeline.play(new ParGroup([
-  new Animation(parItem1, {width: '600px'}, {duration: 1}),
-  new Animation(parItem2, {width: '800px'}, {duration: 1}),
-  new Animation(parItem3, {width: '200px'}, {duration: 1}),
+document.timeline.play(new SeqGroup([
+  new Animation(seqItem1, {width: '300px'}, {duration: 1}),
+  new Animation(seqItem2, {width: '400px'}, {duration: 1}),
+  new Animation(seqItem3, {width: '100px'}, {duration: 1}),
 ]));
 </pre>
+      <style>
+        #seqGroupContainer {
+          width: 820px;
+          background-color: lightgrey;
+          border: solid black;
+          padding: 20px;
+          padding-bottom: 10px;
+        }
+        .seq-timing-box {
+          width: 0px;
+          height: 20px;
+          background: #0da861;
+          border: solid black;
+          margin-bottom: 10px;
+        }
+        #seqItem2 { margin-left: 305px; }
+        #seqItem3 { margin-left: 710px; }
+      </style>
+      <div id="seqGroupContainer">
+        <div id="seqItem1" class="seq-timing-box"></div>
+        <div id="seqItem2" class="seq-timing-box"></div>
+        <div id="seqItem3" class="seq-timing-box"></div>
+      </div>
+      <script>
+        var seqPlayer;
+        seqGroupContainer.addEventListener('click', function() {
+          if (seqPlayer) {
+            seqPlayer.source = null;
+          }
+          seqPlayer = document.timeline.play(new SeqGroup([
+            new Animation(seqItem1, [{width: '0px'}, {width: '300px'}], 1),
+            new Animation(seqItem2, [{width: '0px'}, {width: '400px'}], 1),
+            new Animation(seqItem3, [{width: '0px'}, {width: '100px'}], 1),
+          ]));
+        });
+      </script>
     </article>
   </slide>
 
@@ -483,18 +526,86 @@ document.timeline.play(new ParGroup([
       <h2>Javascript API</h2>
     </hgroup>
     <article>
-      <h3>Grouping animations</h3>
-      Sequence groups
+      <h3>Nested grouped animations</h3>
+      <style>
+        #outerSeqGroupContainer {
+          width: 835px;
+          background-color: lightgrey;
+          border: solid black;
+          padding: 20px;
+          padding-bottom: 10px;
+        }
+        #innerParGroupContainer {
+          margin-left: 305px;
+          margin-bottom: 10px;
+          width: 380px;
+          background-color: lightgrey;
+          border: solid black;
+          padding: 20px;
+          padding-bottom: 10px;
+        }
+        .outer-seq-timing-box {
+          width: 0px;
+          height: 20px;
+          background: #0da861;
+          border: solid black;
+          margin-bottom: 10px;
+        }
+        .inner-par-timing-box {
+          width: 0px;
+          height: 20px;
+          background: #ffd14d;
+          border: solid black;
+          margin-bottom: 10px;
+        }
+        #outerSeqItem2 { margin-left: 730px; }
+      </style>
+      <div id="outerSeqGroupContainer">
+        <div id="outerSeqItem1" class="outer-seq-timing-box"></div>
+        <div id="innerParGroupContainer">
+          <div id="innerParItem1" class="inner-par-timing-box"></div>
+          <div id="innerParItem2" class="inner-par-timing-box"></div>
+          <div id="innerParItem3" class="inner-par-timing-box"></div>
+        </div>
+        <div id="outerSeqItem2" class="outer-seq-timing-box"></div>
+      </div>
+      <script>
+        var outerSeqPlayer;
+        outerSeqGroupContainer.addEventListener('click', function() {
+          if (outerSeqPlayer) {
+            outerSeqPlayer.source = null;
+          }
+          outerSeqPlayer = document.timeline.play(new SeqGroup([
+            new Animation(outerSeqItem1, [{width: '0px'}, {width: '300px'}], 1),
+            new ParGroup([
+              new Animation(innerParItem1, [{width: '0px'}, {width: '300px'}], 1),
+              new Animation(innerParItem2, [{width: '0px'}, {width: '380px'}], 1),
+              new Animation(innerParItem3, [{width: '0px'}, {width: '100px'}], 1),
+            ]),
+            new Animation(outerSeqItem2, [{width: '0px'}, {width: '100px'}], 1),
+          ]));
+        });
+      </script>
     </article>
   </slide>
-
   <slide>
     <hgroup>
       Web Animations
       <h2>Javascript API</h2>
     </hgroup>
     <article>
-      <h3>Nested grouping animations</h3>
+      <h3>Nested grouped animations</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+document.timeline.play(new SeqGroup([
+  new Animation(outerSeqItemFirst, {width: '300px'}, {duration: 1}),
+  new ParGroup([
+    new Animation(innerParItem1, {width: '300px'}, {duration: 1}),
+    new Animation(innerParItem2, {width: '380px'}, {duration: 1}),
+    new Animation(innerParItem3, {width: '100px'}, {duration: 1}),
+  ]),
+  new Animation(outerSeqItemLast, {width: '100px'}, {duration: 1})
+]));
+</pre>
     </article>
   </slide>
 
