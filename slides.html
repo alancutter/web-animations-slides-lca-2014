@@ -30,7 +30,6 @@ URL: https://code.google.com/p/io-2012-slides
     <article class="flexbox vcenter">
       <h2>Web Animations</h2>
       <h3>LCA Multimedia Miniconf</h3>
-      Tuesday 1PM session<br>
     </article>
   </slide>
 
@@ -68,8 +67,8 @@ URL: https://code.google.com/p/io-2012-slides
 .red.square { transition: transform 2s ease-in-out; }
 .red.square:hover { transform: rotate(360deg); }</pre>
       <pre class="prettyprint">
-.blue.square { animation: none 2s ease-in-out; }
-.blue.square:hover { animation-name: spin; }
+.yellow.square { animation: none 2s ease-in-out; }
+.yellow.square:hover { animation-name: spin; }
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -96,21 +95,21 @@ URL: https://code.google.com/p/io-2012-slides
             -webkit-transform: rotate(360deg);
           }
         }
-        #blue-square {
+        #yellow-square {
           position: absolute;
           left: 700px;
           -webkit-animation: none 2s ease-in-out;
           width: 100px;
           height: 100px;
-          background-color: #4387fd;
+          background-color: #ffd14d;
         }
-        #blue-square:hover {
+        #yellow-square:hover {
           -webkit-animation-name: spin-animation;
         }
       </style>
       <div id="square-container">
         <div id="red-square"></div>
-        <div id="blue-square"></div>
+        <div id="yellow-square"></div>
       </div>
     </article>
   </slide>
@@ -132,7 +131,7 @@ URL: https://code.google.com/p/io-2012-slides
            <li>No dynamic modifications to animation content</li>
          </ul>
         <li class="red">No primitives for synchronising different animations playing together</li>
-        <li class="red">Cannot stack multiple animations</li>
+        <li class="red">Cannot stack multiple animations ontop of each other</li>
       </ul>
     </article>
   </slide>
@@ -196,10 +195,10 @@ URL: https://code.google.com/p/io-2012-slides
     <article>
       <ul class="build">
         <li>Declarative</li>
-        <li>Can synchronise animations together</li>
         <li>Has playback controls</li>
-        <li class="red">Cannot dynamically modify animation content</li>
+        <li>Can synchronise animations together</li>
         <li class="red">Entire SVG is treated as a single animation</li>
+        <li class="red">Cannot dynamically modify animation content</li>
         <li class="red">Sees very little use on the web</li>
         <li class="red">Does not integrate with HTML content</li>
         <li class="red">
@@ -218,8 +217,30 @@ URL: https://code.google.com/p/io-2012-slides
       <h2>Javascript</h2>
     </hgroup>
     <article>
-      <pre class="prettyprint">
-</pre>
+      <pre class="prettyprint" data-lang="Javascript">
+function frame() {
+  document.querySelector('.blue.square').style.transform =
+      'rotate(' + (Math.sin(Date.now() / 1000) * 360) + 'deg)';
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);</pre>
+      <style>
+        #jsAnimation {
+          margin-left: 40px;
+          margin-top: 60px;
+          width: 100px;
+          height: 100px;
+          background-color: #4387fd;
+        }
+      </style>
+      <div id="jsAnimation"></div>
+      <script>
+        function frame() {
+          jsAnimation.style.webkitTransform = 'rotate(' + (Math.sin(Date.now() / 1000) * 360) + 'deg)';
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      </script>
     </article>
   </slide>
 
@@ -230,9 +251,11 @@ URL: https://code.google.com/p/io-2012-slides
     <article>
       <ul class="build">
         <li>Total control over the animation</li>
+        <li>Access to powerful graphical tools (Canvas & WebGL)</li>
         <li>Portable (even beyond the web)</li>
         <li class="red">Must run on the main thread</li>
         <li class="red">Procedural, not declarative</li>
+      </ul>
     </article>
   </slide>
 
@@ -241,6 +264,13 @@ URL: https://code.google.com/p/io-2012-slides
       <h2>Problems</h2>
     </hgroup>
     <article>
+      <ul class="build">
+        <li class="red">Different APIs have different models for animation</li>
+        <li class="red">Unnecessary maintenance to support multiple ways of doing the same thing</li>
+        <li class="red">A hassle for web developers to learn multiple techniques</li>
+        <li class="red">No way to synchronise different animation techniques together</li>
+        <li class="red">Not easy for Javascript to set up declarative animations</li>
+      </ul>
     </article>
   </slide>
 
@@ -252,23 +282,61 @@ URL: https://code.google.com/p/io-2012-slides
   </slide>
 
   <slide>
-    <hgroup>Web Animations</hgroup>
+    <hgroup>
+      Web Animations
+      <h2>Contributors</h2>
+    </hgroup>
     <article>
+      <ul>
+        <li>Adobe</li>
+        <li>Google</li>
+        <li>Mozilla</li>
+        <li>W3C: CSS & SVG working groups (FX task force)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Motivations</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li class="green">Unifies existing CSS and SVG animations</li>
+        <li class="green">Allows different animation technologies to coordinate</li>
+        <li class="green">Provides a conceptual foundation for future animation specs<br>(media integration, Layout Animations)</li>
+        <li class="green">Provides a Javascript API for defining animations declaratively</li>
+        <li class="green">Animations not tied to the main thread</li>
+        <li class="green">Makes HTML animations a more compelling alternative to Flash</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
       <h2>Timing Model</h2>
+    </hgroup>
+    <article>
     </article>
   </slide>
 
   <slide>
-    <hgroup>Web Animations</hgroup>
-    <article>
+    <hgroup>
+      Web Animations
       <h2>Javascript API</h2>
+    </hgroup>
+    <article>
     </article>
   </slide>
 
   <slide>
-    <hgroup>Web Animations</hgroup>
-    <article>
+    <hgroup>
+      Web Animations
       <h2>Polyfill</h2>
+    </hgroup>
+    <article>
       <h3>A pure JS implementation</h3>
     </article>
   </slide>
