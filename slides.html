@@ -326,14 +326,113 @@ element.animate(
     {transform: 'rotate(360deg)'},
     {duration: 2});
 </pre>
-    <img src="images/chrome-logo-128.png" id="simpleExample">
-    <script>
-      simpleExample.addEventListener('click', function() {
-        simpleExample.animate(
-          [{transform: 'rotate(0deg)'}, {transform: 'rotate(360deg)'}],
-          {duration: 2});
-      });
-    </script>
+      <img src="images/chrome-logo-128.png" id="simpleExample">
+      <script>
+        simpleExample.addEventListener('click', function() {
+          simpleExample.animate(
+            [{transform: 'rotate(0deg)'}, {transform: 'rotate(360deg)'}],
+            {duration: 2});
+        });
+      </script>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>More complex timing</h3>
+      <pre class="prettyprint">
+element.animate(
+    {transform: 'rotate(360deg)'},
+    {
+      direction: 'alternate',
+      duration: 0.75,
+      iterations: 4
+    });
+</pre>
+      <img src="images/chrome-logo-128.png" id="complexExample">
+      <script>
+        complexExample.addEventListener('click', function() {
+          complexExample.animate(
+            [{transform: 'rotate(0deg)'}, {transform: 'rotate(360deg)'}],
+            {direction: 'alternate', duration: 0.75, iterations: 4});
+        });
+      </script>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>More complex timing</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Grouping animations</h3>
+      Sequence groups
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Grouping animations</h3>
+      Parallel groups
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Nested grouping animations</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Path animations</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Custom animation effects</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Playback control</h3>
     </article>
   </slide>
 
