@@ -616,6 +616,23 @@ document.timeline.play(new SeqGroup([
     </hgroup>
     <article>
       <h3>Path animations</h3>
+      <img id="pathImage" src="images/chrome-logo-128.png">
+      <script>
+        document.timeline.play(
+          new Animation(
+            pathImage,
+            new PathAnimationEffect(
+                'M 100 200 ' +
+                'C 200 100 300   0 400 100 ' +
+                'C 500 200 600 300 700 200 ' +
+                'C 800 100 900 100 900 100', 'auto-rotate'),
+            {
+              duration: 1.5,
+              direction: 'alternate',
+              easing: 'ease-in-out',
+              iterations: Infinity,
+            }));
+      </script>
     </article>
   </slide>
 
@@ -625,7 +642,47 @@ document.timeline.play(new SeqGroup([
       <h2>Javascript API</h2>
     </hgroup>
     <article>
-      <h3>Custom animation effects</h3>
+      <h3>Path animations</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+var svgPathData = 'M 100 200 ' +
+                  'C 200 100 300   0 400 100 ' +
+                  'C 500 200 600 300 700 200 ' +
+                  'C 800 100 900 100 900 100';
+var pathAnimation = new Animation(
+    chromeLogo,
+    new PathAnimationEffect(svgPathData, 'auto-rotate'),
+    {
+      duration: 1.5,
+      direction: 'alternate',
+      easing: 'ease-in-out',
+      iterations: Infinity,
+    });
+document.timeline.play(pathAnimation);
+</pre>
+    </article>
+  </slide>
+
+  <slide id="seekSlide">
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3>Playback control</h3>
+      <img id="seekImage" src="images/chrome-logo-128.png">
+      <script>
+        var seekPlayer = document.timeline.play(new Animation(seekImage,
+            new PathAnimationEffect(
+                'M 100 200 ' +
+                'C 200 100 300   0 400 100 ' +
+                'C 500 200 600 300 700 200 ' +
+                'C 800 100 900 100 900 100', 'auto-rotate'),
+            {duration: 1.5}));
+        seekPlayer.paused = true;
+        seekSlide.onmousemove = function(event) {
+          seekPlayer.currentTime = 1.5 * ((event.clientX - seekSlide.offsetLeft) / seekSlide.clientWidth);
+        };
+      </script>
     </article>
   </slide>
 
@@ -636,6 +693,57 @@ document.timeline.play(new SeqGroup([
     </hgroup>
     <article>
       <h3>Playback control</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+var player = document.timeline.play(pathAnimation);
+player.paused = true;
+seekSlide.onmousemove = function(event) {
+  player.currentTime = (event.clientX - seekSlide.offsetLeft) / seekSlide.clientWidth;
+};
+</pre>
+    </article>
+  </slide>
+
+  <slide id="customSlide">
+    <hgroup>
+      Web Animations
+      <h2>Javascript API</h2>
+    </hgroup>
+    <article>
+      <h3 style="margin-top: -30px;">Custom animation effects</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+function customAnimationEffect(timeFraction, iteration, target) {
+  output.textContent = 'Target: ' + target + '\n' +
+                       'Iteration: ' + iteration + '\n' +
+                       'Fraction: ' + timeFraction.toFixed(2);
+}
+document.timeline.play(
+  new Animation('Example target',
+    {sample: customAnimationEffect},
+    { duration: 1.5,          direction: 'alternate',
+      easing: 'ease-in-out',  iterations: Infinity }));
+</pre>
+      <pre id="customOutput" data-lang="output"></pre>
+      <script>
+        function customAnimationEffect(timeFraction, iteration, target) {
+          customOutput.textContent = 'Target: ' + target + '\n' +
+                                     'Iteration: ' + iteration + '\n' +
+                                     'Fraction: ' + timeFraction.toFixed(2);
+        }
+        var customPlayer = document.timeline.play(
+          new Animation('Example target',
+            {sample: customAnimationEffect},
+            {
+              duration: 1.5,
+              direction: 'alternate',
+              easing: 'ease-in-out',
+              iterations: Infinity,
+            }));
+        window.addEventListener('slideenter', function(event) {
+          if (event.slide == customSlide) {
+            customPlayer.currentTime = 0;
+          }
+        });
+      </script>
     </article>
   </slide>
 
