@@ -669,6 +669,13 @@ document.timeline.play(pathAnimation);
     </hgroup>
     <article>
       <h3>Playback control</h3>
+      <pre class="prettyprint" data-lang="Javascript">
+var player = document.timeline.play(pathAnimation);
+player.paused = true;
+seekSlide.onmousemove = function(event) {
+  player.currentTime = (event.clientX - seekSlide.offsetLeft) / seekSlide.clientWidth;
+};
+</pre>
       <img id="seekImage" src="images/chrome-logo-128.png">
       <script>
         var seekPlayer = document.timeline.play(new Animation(seekImage,
@@ -686,23 +693,6 @@ document.timeline.play(pathAnimation);
     </article>
   </slide>
 
-  <slide>
-    <hgroup>
-      Web Animations
-      <h2>Javascript API</h2>
-    </hgroup>
-    <article>
-      <h3>Playback control</h3>
-      <pre class="prettyprint" data-lang="Javascript">
-var player = document.timeline.play(pathAnimation);
-player.paused = true;
-seekSlide.onmousemove = function(event) {
-  player.currentTime = (event.clientX - seekSlide.offsetLeft) / seekSlide.clientWidth;
-};
-</pre>
-    </article>
-  </slide>
-
   <slide id="customSlide">
     <hgroup>
       Web Animations
@@ -712,12 +702,12 @@ seekSlide.onmousemove = function(event) {
       <h3 style="margin-top: -30px;">Custom animation effects</h3>
       <pre class="prettyprint" data-lang="Javascript">
 function customAnimationEffect(timeFraction, iteration, target) {
-  output.textContent = 'Target: ' + target + '\n' +
+  output.textContent = 'Target: ' + target.name + '\n' +
                        'Iteration: ' + iteration + '\n' +
                        'Fraction: ' + timeFraction.toFixed(2);
 }
 document.timeline.play(
-  new Animation('Example target',
+  new Animation({name: 'Example target'},
     {sample: customAnimationEffect},
     { duration: 1.5,          direction: 'alternate',
       easing: 'ease-in-out',  iterations: Infinity }));
