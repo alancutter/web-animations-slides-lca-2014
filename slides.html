@@ -702,25 +702,25 @@ seekSlide.onmousemove = function(event) {
       <h3 style="margin-top: -30px;">Custom animation effects</h3>
       <pre class="prettyprint" data-lang="Javascript">
 function customAnimationEffect(timeFraction, iteration, target) {
-  output.textContent = 'Target: ' + target.name + '\n' +
-                       'Iteration: ' + iteration + '\n' +
-                       'Fraction: ' + timeFraction.toFixed(2);
+  output.textContent = 'timeFraction: ' + timeFraction.toFixed(2);
+                       'iteration: ' + iteration + '\n' +
 }
 document.timeline.play(
-  new Animation({name: 'Example target'},
-    {sample: customAnimationEffect},
-    { duration: 1.5,          direction: 'alternate',
+  new Animation(
+    null,
+    customAnimationEffect,
+    { duration: 1,          direction: 'alternate',
       easing: 'ease-in-out',  iterations: Infinity }));
 </pre>
       <pre id="customOutput" data-lang="output"></pre>
       <script>
         function customAnimationEffect(timeFraction, iteration, target) {
-          customOutput.textContent = 'Target: ' + target + '\n' +
-                                     'Iteration: ' + iteration + '\n' +
-                                     'Fraction: ' + timeFraction.toFixed(2);
+          customOutput.textContent = 'timeFraction: ' + timeFraction.toFixed(2) + '\n' +
+                                     'iteration: ' + iteration;
         }
         var customPlayer = document.timeline.play(
-          new Animation('Example target',
+          new Animation(
+            null,
             {sample: customAnimationEffect},
             {
               duration: 1.5,
