@@ -52,7 +52,7 @@ URL: https://code.google.com/p/io-2012-slides
       <ul class="build">
         <li>CSS Animations</li>
         <li>SVG Animations</li>
-        <li>JavaScript Animations (Canvas, WebGL, etc.)</li>
+        <li>JavaScript Animations (requestAnimationFrame, Canvas, WebGL, etc.)</li>
         <li>Flash (becoming obsolete)</li>
       </ul>
     </article>
@@ -68,15 +68,15 @@ URL: https://code.google.com/p/io-2012-slides
 .red.square { transition: transform 2s ease-in-out; }
 .red.square:hover { transform: rotate(360deg); }</pre>
       <pre class="prettyprint">
-.yellow.square:hover { animation-name: spin 2s ease-in-out; }
+.yellow.square:hover { animation: spin 2s ease-in-out; }
 @keyframes spin {
   100% { transform: rotate(360deg); }
 }</pre>
       <style>
-        #square-container {
+        #squareContainer {
           position: relative;
         }
-        #red-square {
+        #redSquare {
           position: absolute;
           left: 200px;
           -webkit-transition: -webkit-transform 2s ease-in-out;
@@ -86,7 +86,7 @@ URL: https://code.google.com/p/io-2012-slides
           display: inline-block;
           margin-right: 30px;
         }
-        #red-square:hover {
+        #redSquare:hover {
           -webkit-transform: rotate(360deg) ;
         }
         @-webkit-keyframes spin-animation {
@@ -94,21 +94,26 @@ URL: https://code.google.com/p/io-2012-slides
             -webkit-transform: rotate(360deg);
           }
         }
-        #yellow-square {
+        #yellowSquare {
           position: absolute;
           left: 600px;
           width: 100px;
           height: 100px;
           background-color: #ffd14d;
         }
-        #yellow-square:hover {
+        #yellowSquare:hover {
           -webkit-animation: spin-animation 2s ease-in-out;
         }
       </style>
-      <div id="square-container">
-        <div id="red-square"></div>
-        <div id="yellow-square"></div>
+      <div id="squareContainer">
+        <div id="redSquare"></div>
+        <div id="yellowSquare"></div>
       </div>
+      <script>
+        yellowSquare.addEventListener('click', function() {
+          yellowSquare.style.webkitAnimationPlayState = (yellowSquare.style.webkitAnimationPlayState == 'paused') ? 'running' : 'paused';
+        });
+      </script>
     </article>
   </slide>
 
@@ -121,9 +126,9 @@ URL: https://code.google.com/p/io-2012-slides
       <ul class="build">
         <li>Simple & effective</li>
         <li>Declarative</li>
-        <li>Not tied to the main thread (transform and opacity animations)</li>
+        <li>Not tied to the main thread</li>
         <li>Simple play/pause controls for keyframe animations</li>
-        <li class="red">No dynamic modifications to animation content</li>
+        <li class="red">No dynamic modification or definition of animation content</li>
         <li class="red">No primitives for synchronising different animations playing together</li>
         <li class="red">Cannot stack multiple animations on top of each other</li>
       </ul>
@@ -277,31 +282,29 @@ requestAnimationFrame(frame);</pre>
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>Contributors</h2>
     </hgroup>
     <article>
       <ul>
-        <li>Adobe</li>
-        <li>Google</li>
         <li>Mozilla</li>
-        <li>W3C: CSS & SVG working groups (FX task force)</li>
+        <li>Google</li>
+        <li>Adobe</li>
+        <li>W3C: CSS-SVG Effects Task Force (FXTF)</li>
       </ul>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>Motivations</h2>
     </hgroup>
     <article>
       <ul class="build">
-        <li class="green">Unifies existing CSS and SVG animations</li>
-        <li class="green">Allows different animation technologies to coordinate</li>
-        <li class="green">Provides a conceptual foundation for future animation specs<br>(media integration, Layout Animations)</li>
+        <li class="green">Provides a common model for CSS and SVG animations</li>
+        <li class="green">Allows different animation technologies to coordinate together</li>
+        <li class="green">Allows for future animation specs to integrate with the same model<br>(media integration, Layout Animations)</li>
         <li class="green">Provides a JavaScript API for defining animations declaratively</li>
-        <li class="green">Animations not tied to the main thread</li>
+        <li class="green">Animations are not tied to the main thread</li>
         <li class="green">Makes HTML animations a more compelling alternative to Flash</li>
       </ul>
     </article>
@@ -309,7 +312,6 @@ requestAnimationFrame(frame);</pre>
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -330,7 +332,6 @@ element.animate({transform: 'rotate(360deg)'}, 2);
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -357,7 +358,6 @@ element.animate(
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -386,7 +386,6 @@ element.animate(
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -413,7 +412,6 @@ document.timeline.play(
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -460,7 +458,6 @@ document.timeline.play(new ParGroup([
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -513,7 +510,6 @@ document.timeline.play(new SeqGroup([
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -581,7 +577,6 @@ document.timeline.play(new SeqGroup([
   </slide>
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -602,7 +597,6 @@ document.timeline.play(new SeqGroup([
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -629,7 +623,6 @@ document.timeline.play(new SeqGroup([
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -655,7 +648,6 @@ document.timeline.play(pathAnimation);
 
   <slide id="seekSlide">
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -686,7 +678,6 @@ seekSlide.onmousemove = function(event) {
 
   <slide id="customSlide">
     <hgroup>
-      Web Animations
       <h2>JavaScript API</h2>
     </hgroup>
     <article>
@@ -714,7 +705,7 @@ document.timeline.play(
             null,
             {sample: customAnimationEffect},
             {
-              duration: 1.5,
+              duration: 2,
               direction: 'alternate',
               easing: 'ease-in-out',
               iterations: Infinity,
@@ -730,8 +721,16 @@ document.timeline.play(
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>Timing Model</h2>
+    </hgroup>
+    <article class="flexbox hcenter">
+      <img src="images/time-model.png" style="margin-left: 175px; margin-top: -20px;">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Implementation Status</h2>
     </hgroup>
     <article>
     </article>
@@ -739,11 +738,16 @@ document.timeline.play(
 
   <slide>
     <hgroup>
-      Web Animations
       <h2>Polyfill</h2>
     </hgroup>
     <article>
       <h3>A pure JS implementation</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h2>Demos</h2>
     </article>
   </slide>
 
