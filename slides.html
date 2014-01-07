@@ -612,7 +612,7 @@ document.timeline.play(new SeqGroup([
                 'C 500 200 600 300 700 200 ' +
                 'C 800 100 900 100 900 100', 'auto-rotate'),
             {
-              duration: 1.5,
+              duration: 1,
               direction: 'alternate',
               easing: 'ease-in-out',
               iterations: Infinity,
@@ -636,7 +636,7 @@ var pathAnimation = new Animation(
     chromeLogo,
     new PathAnimationEffect(svgPathData, 'auto-rotate'),
     {
-      duration: 1.5,
+      duration: 1,
       direction: 'alternate',
       easing: 'ease-in-out',
       iterations: Infinity,
@@ -730,9 +730,54 @@ document.timeline.play(
 
   <slide>
     <hgroup>
+      <h2>Timing Model</h2>
+      <h3>Timing inputs</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="WebIDL">
+dictionary TimingInput {
+    double                             delay = 0;
+    double                             endDelay = 0;
+    FillMode                           fill = "auto";
+    double                             iterationStart = 0.0;
+    unrestricted double                iterations = 1.0;
+    (unrestricted double or DOMString) duration = "auto";
+    double                             playbackRate = 1.0;
+    PlaybackDirection                  direction = "normal";
+    DOMString                          easing = "linear";
+    EasingTimesInput                   easingTimes = "distribute";
+};
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Timing Model</h2>
+      <h3>Timing calculations</h3>
+    </hgroup>
+    <article class="flexbox hcenter">
+      <div style="height: 500px; overflow: scroll; margin-left: auto; margin-right: auto;">
+        <img src="images/time-calculations.svg" style="height: 1500px;">
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
       <h2>Implementation Status</h2>
     </hgroup>
     <article>
+      <ul class="build">
+        <li>Specification at First Public Working Draft: <a href="http://www.w3.org/TR/web-animations/">www.w3.org/TR/web-animations</a></li>
+        <li>Chrome:
+          <ul>
+            <li>CSS Transitions & Animations rewritten on top of the Web Animations model</li>
+            <li>JavaScript API in development behind a flag</li>
+          </ul>
+        <li>Firefox & Safari: Started implementation</li>
+        <li>IE: No public signals</li>
+      </ul>
     </article>
   </slide>
 
@@ -741,7 +786,12 @@ document.timeline.play(
       <h2>Polyfill</h2>
     </hgroup>
     <article>
-      <h3>A pure JS implementation</h3>
+      <ul class="build">
+        <li>A JS implementation of the API</li>
+        <li>Allows developers to use the technology on browsers that don't yet support it</li>
+        <li>Available on Github: <a href="github.com/web-animations/web-animations-js">github.com/web-animations/web-animations-js</a></li>
+        <li>Please try it out!</li>
+      </ul>
     </article>
   </slide>
 
