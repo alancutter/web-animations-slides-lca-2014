@@ -171,16 +171,16 @@ URL: https://code.google.com/p/io-2012-slides
       </svg>
       <button style="margin-left: 50px; margin-top: -180px; width: 60px;" id="svgAnimationControl">Pause</button>
       <script>
-        var paused = false;
+        var svgPaused = false;
         svgAnimationControl.addEventListener('click', function() {
-          if (paused) {
+          if (svgPaused) {
             svgAnimation.unpauseAnimations();
             svgAnimationControl.innerHTML = 'Pause';
           } else {
             svgAnimation.pauseAnimations();
             svgAnimationControl.innerHTML = 'Play';
           }
-          paused = !paused;
+          svgPaused = !svgPaused;
         });
       </script>
     </article>
