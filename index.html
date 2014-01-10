@@ -86,6 +86,7 @@ Authors: Alan Cutter <alancutter@chromium.org>
           position: absolute;
           left: 200px;
           -webkit-transition: -webkit-transform 2s ease-in-out;
+          transition: transform 2s ease-in-out;
           width: 100px;
           height: 100px;
           background-color: #f44a3f;
@@ -93,11 +94,17 @@ Authors: Alan Cutter <alancutter@chromium.org>
           margin-right: 30px;
         }
         #redSquare:hover {
-          -webkit-transform: rotate(360deg) ;
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
         }
         @-webkit-keyframes spin-animation {
           to {
             -webkit-transform: rotate(360deg);
+          }
+        }
+        @keyframes spin-animation {
+          to {
+            transform: rotate(360deg);
           }
         }
         #yellowSquare {
@@ -109,6 +116,7 @@ Authors: Alan Cutter <alancutter@chromium.org>
         }
         #yellowSquare:hover {
           -webkit-animation: spin-animation 2s ease-in-out;
+          animation: spin-animation 2s ease-in-out;
         }
       </style>
       <div id="squareContainer">
@@ -118,6 +126,7 @@ Authors: Alan Cutter <alancutter@chromium.org>
       <script>
         yellowSquare.addEventListener('click', function() {
           yellowSquare.style.webkitAnimationPlayState = (yellowSquare.style.webkitAnimationPlayState == 'paused') ? 'running' : 'paused';
+          yellowSquare.style.animationPlayState = (yellowSquare.style.animationPlayState == 'paused') ? 'running' : 'paused';
         });
       </script>
     </article>
@@ -242,6 +251,7 @@ requestAnimationFrame(frame);</pre>
       <script>
         function frame(time) {
           jsAnimation.style.webkitTransform = 'rotate(' + (Math.sin(time / 1000) * 360) + 'deg)';
+          jsAnimation.style.transform = 'rotate(' + (Math.sin(time / 1000) * 360) + 'deg)';
           requestAnimationFrame(frame);
         }
         requestAnimationFrame(frame);
